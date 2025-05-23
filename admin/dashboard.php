@@ -17,7 +17,6 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="assets/css/login-dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <?php include __DIR__ . '/../includes/navbar.php'; ?>
 </head>
 <body>
     <!-- Sidebar -->
