@@ -42,7 +42,7 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
                 <i class="fas fa-shopping-cart"></i>
                 <span>Pedidos</span>
             </a>
-            <a href="#" class="nav-item" onclick="openReportModal()">
+            <a href="#" class="nav-item" onclick="openReportModal(); return false;">
                 <i class="fas fa-chart-bar"></i>
                 <span>Reportes</span>
             </a>
@@ -116,7 +116,7 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
                     <h3>Reportes</h3>
                     <p>Análisis y estadísticas</p>
                 </div>
-                <a href="#" class="card-link" onclick="openReportModal()"></a>
+                <a href="#" class="card-link" onclick="openReportModal(); return false;"></a>
             </div>
         </div>
 
@@ -184,15 +184,41 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
     <!-- Modal de Reportes -->
     <div id="modalReporte" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-chart-bar"></i> Reportes Dinámicos</h2>
-                <button class="close-btn" onclick="closeReportModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php include __DIR__ . '/reportes/generador.php'; ?>
-            </div>
+            <span class="close" onclick="closeReportModal()">&times;</span>
+            <h2>📊 Generar Reporte Unificado</h2>
+
+            <form id="form-reporte" action="reportes/procesar_reporte.php" method="POST">
+                <p><strong>Selecciona las columnas a exportar:</strong></p>
+                <div class="columnas-wrapper">
+                    <?php
+                    $campos_disponibles = [
+                        'customer_name' => ['tabla' => 'orders', 'alias' => 'Nombre del Cliente'],
+                        'customer_email' => ['tabla' => 'orders', 'alias' => 'Correo'],
+                        'created_at' => ['tabla' => 'orders', 'alias' => 'Fecha de Compra'],
+                        'total_amount' => ['tabla' => 'orders', 'alias' => 'Monto Total'],
+                        'product_name' => ['tabla' => 'order_items', 'alias' => 'Producto'],
+                        'quantity' => ['tabla' => 'order_items', 'alias' => 'Cantidad'],
+                        'price' => ['tabla' => 'order_items', 'alias' => 'Precio'],
+                        'order_id' => ['tabla' => 'order_items', 'alias' => 'ID de Orden']
+                    ];
+                    
+                    foreach ($campos_disponibles as $campo => $info): 
+                    ?>
+                        <label>
+                            <input type="checkbox" name="columnas[]" value="<?= $campo ?>">
+                            <?= htmlspecialchars($info['alias']) ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                
+                <label for="desde">Desde:</label>
+                <input type="date" name="desde" required>
+
+                <label for="hasta">Hasta:</label>
+                <input type="date" name="hasta" required>
+
+                <button type="submit">📥 Descargar CSV</button>
+            </form>
         </div>
     </div>
 
@@ -220,12 +246,19 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
 
         // Modal Functions
         function openReportModal() {
-            document.getElementById('modalReporte').style.display = 'flex';
+            const modal = document.getElementById('modalReporte');
+            modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Animate modal appearance
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
         }
 
         function closeReportModal() {
-            document.getElementById('modalReporte').style.display = 'none';
+            const modal = document.getElementById('modalReporte');
+            modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
@@ -234,6 +267,37 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
             if (e.target === this) {
                 closeReportModal();
             }
+        });
+
+        // Form validation for reports
+        document.getElementById('form-reporte').addEventListener('submit', function(e) {
+            const checkboxes = document.querySelectorAll('input[name="columnas[]"]:checked');
+            const desde = document.querySelector('input[name="desde"]');
+            const hasta = document.querySelector('input[name="hasta"]');
+        
+            if (checkboxes.length === 0) {
+                e.preventDefault();
+                alert('⚠️ Debes seleccionar al menos una columna para generar el reporte.');
+                return;
+            }
+        
+            if (!desde.value || !hasta.value) {
+                e.preventDefault();
+                alert('⚠️ Debes seleccionar un rango de fechas.');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '⏳ Generando...';
+            submitBtn.disabled = true;
+
+            // Reset button after a delay (in case of errors)
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 5000);
         });
 
         // Responsive sidebar
@@ -250,11 +314,22 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
         // Add loading animation to cards
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('click', function() {
-                this.classList.add('loading');
-                setTimeout(() => {
-                    this.classList.remove('loading');
-                }, 300);
+                if (!this.querySelector('.card-link').onclick) {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 300);
+                }
             });
+        });
+
+        // Initialize date inputs with default values
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+            
+            document.querySelector('input[name="hasta"]').value = today.toISOString().split('T')[0];
+            document.querySelector('input[name="desde"]').value = lastMonth.toISOString().split('T')[0];
         });
     </script>
 
