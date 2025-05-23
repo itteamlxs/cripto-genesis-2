@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/csrf.php';
-require_once __DIR__ . '/../includes/auditoria.php'; // o la ruta que aplique
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../includes/db.php';
-require_once __DIR__ . '/../includes/auditoria.php'; // o la ruta que aplique
+
 
 
 // Tráfico por hora (0 a 23)

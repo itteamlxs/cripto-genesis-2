@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../../includes/csrf.php';
-require_once __DIR__ . '/../includes/auditoria.php'; // o la ruta que aplique
+
 
 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
