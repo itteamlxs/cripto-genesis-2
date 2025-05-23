@@ -1,0 +1,34 @@
+# Ignorar archivos de entorno
+.env
+
+# Ignorar dependencias de Composer
+/vendor/
+
+# Archivos temporales o de prueba
+*.log
+*.txt
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Ignorar base de datos de prueba o archivos SQL
+*.sql
+
+# Ignorar configuraciones de IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorar archivos de testeo o desarrollo
+test.php
+cfuente.txt
+
+# Ignorar cache de PHP
+*.cache
+*.session
+
+# Composer lock file (opcional)
+# Descomenta si no querés versionar composer.lock
+# composer.lock
