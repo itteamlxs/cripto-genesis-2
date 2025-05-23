@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 70%;
+  margin: 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.actions a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.success {
+  background: #e0ffe0;
+  border: 1px solid #5cff5c;
+  padding: 10px;
+  border-radius: 5px;
+  color: #090;
+  margin-bottom: 15px;
+}
+
+.error {
+  background: #ffe0e0;
+  border: 1px solid #ff5c5c;
+  padding: 10px;
+  border-radius: 5px;
+  color: #900;
+  margin-bottom: 15px;
+}
+
+.admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.admin-btn {
+    flex: 1 1 200px;
+    padding: 1rem;
+    background: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-btn:hover {
+    background: #0056b3;
+}
