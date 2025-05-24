@@ -1,6 +1,6 @@
 # Ignorar archivos files
 /admin/assets/reciclaje/ 
-
+stripe.sh
 # Ignorar archivos de entorno
 .env
 
