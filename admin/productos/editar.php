@@ -4,8 +4,6 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../../includes/csrf.php';
 
-
-
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: ../login.php');
     exit;
@@ -82,47 +80,130 @@ $csrf_token = generate_csrf_token();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Editar producto</title>
-    <link rel="stylesheet" href="../assets/css/admin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto - Panel Admin</title>
+    <link rel="stylesheet" href="../assets/css/global-admin.css">
 </head>
 <body>
-<div class="container">
-    <h1>✏️ Editar Producto</h1>
+    <div class="container">
+        <h1>✏️ Editar Producto</h1>
 
-    <?php if ($mensaje): ?>
-        <div class="success"><?= $mensaje ?></div>
-    <?php endif; ?>
+        <?php if ($mensaje): ?>
+            <div class="success"><?= htmlspecialchars($mensaje) ?></div>
+        <?php endif; ?>
 
-    <?php if ($errores): ?>
-        <div class="error">
-            <?php foreach ($errores as $e): ?>
-                <p><?= htmlspecialchars($e) ?></p>
-            <?php endforeach; ?>
+        <?php if ($errores): ?>
+            <div class="error">
+                <?php foreach ($errores as $e): ?>
+                    <p><?= htmlspecialchars($e) ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+
+                <div class="form-group">
+                    <label for="name">Nombre del Producto</label>
+                    <input type="text" id="name" name="name" value="<?= escape($product['name']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" name="description" placeholder="Descripción del producto (opcional)"><?= escape($product['description']) ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Precio ($)</label>
+                    <input type="number" id="price" step="0.01" name="price" value="<?= escape($product['price']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Imagen Actual</label>
+                    <div class="current-image">
+                        <img src="../../public/<?= escape($product['image']) ?>" alt="Imagen actual" style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Cambiar Imagen</label>
+                    <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png,.gif">
+                    <small style="color: #666; margin-top: 0.5rem; display: block;">
+                        Formatos permitidos: JPG, PNG, GIF. Máximo 5MB.
+                    </small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        💾 Guardar Cambios
+                    </button>
+                    <a href="index.php" class="btn btn-outline">
+                        ❌ Cancelar
+                    </a>
+                </div>
+            </form>
         </div>
-    <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+        <div class="navigation">
+            <a href="index.php" class="back-link">
+                ← Volver a Productos
+            </a>
+        </div>
+    </div>
 
-        <label>Nombre:</label>
-        <input type="text" name="name" value="<?= escape($product['name']) ?>" required>
+    <style>
+        .form-container {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
 
-        <label>Descripción:</label>
-        <textarea name="description"><?= escape($product['description']) ?></textarea>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-        <label>Precio:</label>
-        <input type="number" step="0.01" name="price" value="<?= escape($product['price']) ?>" required>
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
 
-        <label>Imagen actual:</label><br>
-        <img src="../../public/<?= escape($product['image']) ?>" width="100"><br><br>
+        .current-image {
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+            background: #fff;
+        }
 
-        <label>Cambiar imagen:</label>
-        <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif">
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
 
-        <button type="submit">Guardar cambios</button>
-    </form>
+        .form-actions .btn {
+            flex: 1;
+            min-width: 150px;
+        }
 
-    <p><a href="index.php">← Volver a productos</a></p>
-</div>
+        .navigation {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        @media (max-width: 768px) {
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </body>
 </html>

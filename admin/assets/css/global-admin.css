@@ -1,0 +1,1067 @@
+/* ========================================
+   ESTILOS GLOBALES - SISTEMA ADMINISTRACIÓN
+   ======================================== */
+
+/* Variables CSS para consistencia */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --success-color: #28a745;
+  --success-bg: #d4edda;
+  --success-border: #c3e6cb;
+  --error-color: #dc3545;
+  --error-bg: #f8d7da;
+  --error-border: #f5c6cb;
+  --warning-color: #ffc107;
+  --warning-bg: #fff3cd;
+  --warning-border: #ffeaa7;
+  --info-color: #17a2b8;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #333;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --radius: 8px;
+  --radius-sm: 4px;
+  --transition: all 0.3s ease;
+}
+
+/* Reset y base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+  width: min(90%, 1200px);
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  font-weight: 300;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+h2 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+/* Mensajes de estado */
+.success, .error, .warning, .info {
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  border-left: 4px solid;
+  position: relative;
+  animation: slideInTop 0.3s ease;
+}
+
+.success {
+  background: var(--success-bg);
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.error {
+  background: var(--error-bg);
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+.warning {
+  background: var(--warning-bg);
+  border-color: var(--warning-color);
+  color: #856404;
+}
+
+.info {
+  background: #d1ecf1;
+  border-color: var(--info-color);
+  color: var(--info-color);
+}
+
+/* Formularios */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+label {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Botones */
+button,
+.btn,
+input[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover,
+.btn:hover,
+input[type="submit"]:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Variantes de botones */
+.btn-success {
+  background: var(--success-color);
+}
+
+.btn-success:hover {
+  background: #218838;
+}
+
+.btn-danger {
+  background: var(--error-color);
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.btn-warning {
+  background: var(--warning-color);
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background: #e0a800;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* Botones de acción administrativa */
+.admin-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-btn {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.admin-btn:hover::before {
+  left: 100%;
+}
+
+.admin-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+table th {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: #fff;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+table tr:nth-child(even) {
+  background: var(--light-gray);
+}
+
+table tr:hover {
+  background: #e3f2fd;
+  transition: var(--transition);
+}
+
+/* Imágenes en tablas */
+table img {
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Acciones en tablas */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions a {
+  color: var(--primary-color);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  font-size: 0.875rem;
+}
+
+.actions a:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.actions button {
+  background: transparent;
+  border: none;
+  color: var(--error-color);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.actions button:hover {
+  background: var(--error-color);
+  color: #fff;
+}
+
+/* Modales */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #fff;
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: var(--radius);
+  width: min(90%, 500px);
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  animation: slideInDown 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #aaa;
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.close:hover {
+  color: var(--error-color);
+  transform: scale(1.1);
+}
+
+/* Enlaces de navegación */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background: var(--light-gray);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  background: var(--border-color);
+  text-decoration: none;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .admin-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  table {
+    font-size: 0.875rem;
+  }
+  
+  table th,
+  table td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .modal-content {
+    margin: 10% auto;
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  button,
+  .btn {
+    width: 100%;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ====================================
+   ESTILOS PARA ADMINISTRACIÓN DE PEDIDOS
+   ==================================== */
+
+/* Contenedor principal del admin */
+.admin-body {
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* ====================================
+   HEADER DE PÁGINA
+   ==================================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.page-icon {
+    font-size: 1.5rem;
+}
+
+.page-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-badge {
+    background: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.order-status-header {
+    display: flex;
+    align-items: center;
+}
+
+/* ====================================
+   ESTADO VACÍO
+   ==================================== */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #64748b;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #475569;
+}
+
+.empty-description {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* ====================================
+   TABLAS
+   ==================================== */
+.table-container {
+    margin-bottom: 2rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.orders-table, .products-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.table-header {
+    background: #f8fafc;
+}
+
+.header-row {
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.header-cell {
+    padding: 1rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: #475569;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.data-row {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.15s ease;
+}
+
+.data-row:hover {
+    background-color: #f8fafc;
+}
+
+.table-cell {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+}
+
+/* Celdas específicas de la tabla de pedidos */
+.order-id {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #3730a3;
+    background: #f0f9ff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.customer-info {
+    min-width: 200px;
+}
+
+.customer-email {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.amount {
+    text-align: right;
+}
+
+.price {
+    font-weight: 600;
+    color: #059669;
+    font-size: 1.1em;
+}
+
+.items-count {
+    text-align: center;
+}
+
+.items-badge {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.date {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.order-date {
+    white-space: nowrap;
+}
+
+/* ====================================
+   BADGES DE ESTADO
+   ==================================== */
+.status {
+    text-align: center;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.status-badge.large {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #d97706;
+    border: 1px solid #f59e0b;
+}
+
+.status-sent {
+    background: #d1fae5;
+    color: #059669;
+    border: 1px solid #10b981;
+}
+
+/* ====================================
+   BOTONES Y ACCIONES
+   ==================================== */
+.actions {
+    text-align: center;
+    min-width: 150px;
+}
+
+.actions-header {
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.btn-view {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-view:hover {
+    background: #2563eb;
+}
+
+.btn-send {
+    background: #10b981;
+    color: white;
+}
+
+.btn-send:hover {
+    background: #059669;
+}
+
+.btn-back {
+    background: #64748b;
+    color: white;
+}
+
+.btn-back:hover {
+    background: #475569;
+}
+
+.btn-print {
+    background: #8b5cf6;
+    color: white;
+}
+
+.btn-print:hover {
+    background: #7c3aed;
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+.btn-text {
+    font-weight: 500;
+}
+
+.inline-form {
+    display: inline;
+}
+
+/* ====================================
+   PIE DE PÁGINA
+   ==================================== */
+.page-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-actions-right {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ====================================
+   DETALLES DEL PEDIDO
+   ==================================== */
+.order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.details-section {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-icon {
+    font-size: 1.25rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detail-value {
+    font-size: 1rem;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.detail-value.email {
+    color: #3b82f6;
+}
+
+.detail-value.phone {
+    font-family: 'Courier New', monospace;
+}
+
+.detail-value.address {
+    line-height: 1.5;
+}
+
+.detail-value.total-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+/* ====================================
+   TABLA DE PRODUCTOS
+   ==================================== */
+.products-table-container {
+    margin-top: 1rem;
+}
+
+.product-row {
+    background: white;
+}
+
+.product-row:hover {
+    background: #f1f5f9;
+}
+
+.product-name {
+    font-weight: 500;
+}
+
+.product-title {
+    color: #1e293b;
+}
+
+.quantity {
+    text-align: center;
+}
+
+.quantity-badge {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.unit-price, .subtotal {
+    text-align: right;
+}
+
+.subtotal-amount {
+    font-weight: 600;
+}
+
+.table-footer {
+    background: #f8fafc;
+    border-top: 2px solid #e2e8f0;
+}
+
+.total-row {
+    background: #f1f5f9;
+}
+
+.total-label {
+    text-align: right;
+    font-weight: 600;
+    color: #374151;
+}
+
+.total-amount {
+    text-align: right;
+}
+
+.final-total {
+    font-size: 1.25rem;
+    color: #059669;
+}
+
+.empty-products {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+}
+
+.no-products-message {
+    font-style: italic;
+}
+
+/* ====================================
+   RESPONSIVE DESIGN
+   ==================================== */
+@media (max-width: 768px) {
+    .admin-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .btn {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .footer-actions-right {
+        justify-content: center;
+    }
+    
+    .table-wrapper {
+        font-size: 0.875rem;
+    }
+    
+    .table-cell {
+        padding: 0.5rem 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.125rem;
+    }
+    
+    .orders-table .table-cell:nth-child(4),
+    .orders-table .header-cell:nth-child(4) {
+        display: none; /* Ocultar columna de items en móviles muy pequeños */
+    }
+}

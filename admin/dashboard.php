@@ -29,6 +29,10 @@ $usuario = escape($_SESSION['admin_username'] ?? 'Administrador');
                 <i class="fas fa-home"></i>
                 <span>Dashboard</span>
             </a>
+            <a href="../public/index.php" class="nav-item" data-tab="nav-item">
+                <i class="fas fa-store"></i>
+                <span>Store</span>
+            </a>
             <a href="productos/index.php" class="nav-item">
                 <i class="fas fa-box"></i>
                 <span>Productos</span>
